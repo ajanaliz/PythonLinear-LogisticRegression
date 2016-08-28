@@ -61,7 +61,7 @@ def cross_entropy(T, Y):
 # let's do gradient descent 100 times
 learning_rate = 0.0001
 error = []
-for i in xrange(5000):
+for i in xrange(500000):
     e = cross_entropy(T, Y)
     error.append(e)
     if i % 100 == 0:
