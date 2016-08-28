@@ -1,3 +1,4 @@
+
 import numpy as np
 
 N = 100
@@ -28,6 +29,7 @@ z = Xb.dot(w)
 def sigmoid(z):
     return 1/(1 + np.exp(-z))
 
+
 Y = sigmoid(z)
 
 # calculate the cross-entropy error
@@ -40,15 +42,20 @@ def cross_entropy(T, Y):
             E -= np.log(1 - Y[i])
     return E
 
-print cross_entropy(T, Y)
 
-# try it with our closed-form solution
-w = np.array([0, 4, 4])
+# let's do gradient descent 100 times
+learning_rate = 0.1
+for i in xrange(100):
+    if i % 10 == 0:
+        print cross_entropy(T, Y)
 
-# calculate the model output
-z = Xb.dot(w)
-Y = sigmoid(z)
+    # gradient descent weight udpate
+    w += learning_rate * np.dot((T - Y).T, Xb)
 
-# calculate the cross-entropy error
-print cross_entropy(T, Y)
+    # recalculate Y
+    Y = sigmoid(Xb.dot(w))
+
+
+print "Final w:", w
+
 
